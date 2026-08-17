@@ -86,5 +86,17 @@ resource "google_spanner_instance" "banking-instance-3" {
   num_nodes    = 2
   labels = {
   }
+
+Task 7. Deleting instances
+A very quick way to delete an instance is using the CLI. Run the following command:
+
+gcloud spanner instances delete banking-instance-2
+
+Copied!
+When prompted, type Y, and then press Enter.
+
+To confirm that banking-instance-2 was deleted run the following command:
+
+gcloud spanner instances list
 }
 
