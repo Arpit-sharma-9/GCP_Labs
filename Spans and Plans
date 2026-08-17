@@ -1,1 +1,90 @@
+Bridge the gap between big database spans and smart serverless plans using Spanner, Pub/Sub, and API Gateway.
+Mind Your Schemas
+LAB - 1 
+Cloud Spanner - Database Fundamentals 
+Task 3. Create a table in your database
+
+CREATE TABLE Customer (
+  CustomerId STRING(36) NOT NULL,
+  Name STRING(MAX) NOT NULL,
+  Location STRING(MAX) NOT NULL,
+) PRIMARY KEY (CustomerId);
+
+
+Task 4. Insert and modify data
+Insert data
+While on the Schema page, click Data in the left menu. Then click Insert.
+
+This takes you to the Query tab of the Spanner Studio automatically. Click Clear, paste the query below, and click Run:
+
+INSERT INTO
+  Customer (CustomerId,
+    Name,
+    Location)
+VALUES
+  ('bdaaaa97-1b4b-4e58-b4ad-84030de92235',
+    'Richard Nelson',
+    'Ada Ohio'
+    );
+
+The lower page of the screen shows the result. The Customer table now has one row.
+
+Add a second row. Replace the previous statement with the following, and click Run:
+
+INSERT INTO
+  Customer (CustomerId,
+    Name,
+    Location)
+VALUES
+  ('b2b4002d-7813-4551-b83b-366ef95f9273',
+    'Shana Underwood',
+    'Ely Iowa'
+    );
+
+Task 5. Use the Google Cloud CLI with Cloud Spanner
+In the Cloud Shell, create a new Cloud Spanner using the command below.
+gcloud spanner instances create banking-instance-2 \
+--config=regional-  \
+--description="Banking Instance 2" \
+--nodes=2
+
+Listing instances
+You can run the following command to list the Spanner instances available in your project.
+gcloud spanner instances list
+Copied!
+Creating a database
+You can also create databases in a Spanner instance using gcloud.
+
+In the Cloud Shell, create a new database using the command below.
+
+gcloud spanner databases create banking-db-2 --instance=banking-instance-2
+
+
+Task 6. Use Automation Tools with Cloud Spanner
+Install Terraform
+Terraform is not pre-installed in Cloud Shell. You must install the Terraform CLI and configure it to persist across your Cloud Shell sessions.
+
+To configure the HashiCorp repository and install Terraform, and to ensure that this installation persists across future sessions, run the following commands in the Cloud Shell terminal:
+
+cat <<'EOF' > ~/.customize_environment
+# Set up HashiCorp repository and install Terraform
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install -y terraform
+EOF
+bash ~/.customize_environment
+
+Create Terraform Configuration
+In the cloud shell enter the following command to invoke the Nano text editor and create a new empty configuration file named spanner.tf.
+nano spanner.tf
+Copied!
+In the Nano editor, paste the code block listed below.
+resource "google_spanner_instance" "banking-instance-3" {
+  name         = "banking-instance-3"
+  config       = "regional-"
+  display_name = "Banking Instance 3"
+  num_nodes    = 2
+  labels = {
+  }
+}
 
