@@ -1,1 +1,22 @@
+LAB - 1 (Knowledge Catalog: Qwik Start - Console)
+Task 1. Create a lake
+In Knowledge Catalog, a lake is the highest organizational domain that represents a specific data area or business unit. For example, you can create a lake for each department or data domain in your organization, so that you can organize and provide data for specific user groups.
 
+In this task, you create a lake to start building a data mesh.
+
+In the Google Cloud Console, select Navigation menu (Navigation menu) > View all products. Under Analytics, select Knowledge Catalog.
+If prompted Welcome to the new Knowledge Catalog experience, click Close.
+
+Under Manage lakes, click Manage.
+
+Click +Create lake.
+
+Enter the required information to create a new lake:
+
+Property	Value
+Display Name	sensors
+ID	Leave the default value.
+Region	us-west1
+Leave the other default values.
+
+Click Create.
